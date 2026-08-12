@@ -39,7 +39,12 @@
   var targets = railLinks.map(function (a) { return document.querySelector(a.getAttribute('href')); });
   function syncRail() {
     var mid = window.scrollY + window.innerHeight * 0.42, idx = 0;
-    targets.forEach(function (t, i) { if (t && t.offsetTop <= mid) idx = i; });
+    targets.forEach(function (t, i) {
+      if (t) {
+        var top = t.getBoundingClientRect().top + window.scrollY;
+        if (top <= mid) idx = i;
+      }
+    });
     railLinks.forEach(function (a, i) { a.classList.toggle('on', i === idx); });
   }
 

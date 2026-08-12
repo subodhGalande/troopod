@@ -78,32 +78,13 @@
 
 <nav class="rail" aria-label="Section progress">
   <a href="#top" class="on" aria-label="Hero"></a>
+  <a href="#reviews" aria-label="Reviews"></a>
   <a href="#ingredients" aria-label="Ingredients"></a>
   <a href="#how" aria-label="How it works"></a>
   <a href="#proof" aria-label="Proof"></a>
   <a href="#bundles" aria-label="Bundles"></a>
   <a href="#shop" aria-label="Shop"></a>
-  <a href="#reviews" aria-label="Reviews"></a>
 </nav>
-
-<script>
-  (function () {
-    var hdr = document.getElementById('hdr');
-    var railLinks = [].slice.call(document.querySelectorAll('.rail a'));
-    var targets = railLinks.map(function (a) { return document.querySelector(a.getAttribute('href')); });
-
-    function sync() {
-      var y = window.scrollY || window.pageYOffset;
-      if (hdr) hdr.classList.toggle('up', y > 90);
-      var mid = y + window.innerHeight * 0.42, idx = 0;
-      targets.forEach(function (t, i) { if (t && t.offsetTop <= mid) idx = i; });
-      railLinks.forEach(function (a, i) { a.classList.toggle('on', i === idx); });
-    }
-
-    window.addEventListener('scroll', sync, { passive: true });
-    sync();
-  })();
-</script>
 
 {% schema %}
 {
