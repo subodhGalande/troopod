@@ -1,0 +1,66 @@
+{% comment %}
+  PURELANE FULL RANGE SHELF (1:1 PARITY WITH PROTOTYPE)
+{% endcomment %}
+
+{{ 'purelane.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .range{padding:clamp(20px,2.6vw,30px)}
+  .range-head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px;justify-content:space-between;margin-bottom:8px}
+  .range-head .d2{max-width:20ch}
+  .stripwrap{margin:10px 0 0}
+  .rangerow{display:flex;align-items:flex-end;justify-content:space-between;gap:6px;min-height:150px}
+  .rangerow .pimg{height:132px;filter:drop-shadow(0 9px 14px rgba(0,74,66,.14))}
+  .rangerow .pimg:nth-child(even){height:118px}
+  .striphint{display:none; font-size:11px; color:var(--paper-3); text-align:center; margin-top:8px;}
+  @media(max-width:760px){
+    .stripwrap{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:6px -14px 0;padding:0 14px 6px}
+    .stripwrap::-webkit-scrollbar{display:none}
+    .rangerow{min-height:132px;justify-content:flex-start;gap:10px}
+    .rangerow .pimg{height:116px}
+    .rangerow .pimg:nth-child(even){height:104px}
+    .striphint{display:block}
+  }
+</style>
+
+<section class="sec" id="range" data-scene="3">
+  <div class="wrap">
+    <div class="glass range">
+      <div class="range-head">
+        <div>
+          <span class="kicker">The full range</span>
+          <h2 class="d2" style="margin-top:10px">Every room, one shelf</h2>
+        </div>
+        <p class="body-s" style="max-width:34ch;margin-bottom:4px">Floors, taps, kitchen, laundry, bathroom and hands. Fourteen plant-based formulas that replace every harsh bottle under your sink.</p>
+      </div>
+
+      <div class="stripwrap">
+        <div class="rangerow">
+          <span class="pimg p-floor" role="img"></span>
+          <span class="pimg p-tap" role="img"></span>
+          <span class="pimg p-kitchen" role="img"></span>
+          <span class="pimg p-toilet" role="img"></span>
+          <span class="pimg p-laundry" role="img"></span>
+          <span class="pimg p-dish" role="img"></span>
+          <span class="pimg p-metal" role="img"></span>
+          <span class="pimg p-wm" role="img"></span>
+          <span class="pimg p-handwash" role="img"></span>
+          <span class="pimg p-eraser" role="img"></span>
+        </div>
+      </div>
+      
+      <p class="striphint">Swipe to see the full shelf</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane Range Shelf",
+  "presets": [
+    {
+      "name": "Purelane Range Shelf"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,73 @@
+{% comment %}
+  PURELANE WHY BUNDLES SECTION (1:1 PARITY WITH PROTOTYPE)
+{% endcomment %}
+
+{{ 'purelane.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .wb{display:grid;gap:20px 16px;grid-template-columns:repeat(2,1fr)}
+  @media(min-width:880px){.wb{grid-template-columns:repeat(4,1fr)}}
+  .wb-i{text-align:center}
+  .wb-i .ci{width:56px;height:56px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;
+    background:radial-gradient(circle at 36% 28%,rgba(201,118,29,.20),rgba(75,58,143,.12));
+    border:1px solid rgba(75,58,143,.16);color:#4f7d10}
+  .wb-i .ci svg{width:25px;height:25px}
+  .wb-i h4{font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--surface);margin-bottom:7px}
+  .wb-i p{font-size:12.2px;color:var(--paper-2);line-height:1.5}
+</style>
+
+<section class="sec" id="whybundles" data-scene="4">
+  <div class="wrap">
+    <div class="glass sec-pad">
+      <div class="panel-head">
+        <span class="kicker">The smarter way to shop</span>
+        <h2 class="d2" style="margin-top:12px">Why bundles beat buying single</h2>
+      </div>
+      
+      <div class="wb">
+        <div class="wb-i">
+          <span class="ci">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M16.5 7.2C15.6 6 14 5.4 12 5.4c-2.4 0-4 1.1-4 2.9 0 2 1.7 2.7 4.2 3.3 2.7.6 4.3 1.4 4.3 3.4 0 1.9-1.7 3.1-4.5 3.1-2.2 0-3.8-.7-4.8-2"/></svg>
+          </span>
+          <h4>Save up to 45%</h4>
+          <p>Versus buying the same products separately</p>
+        </div>
+
+        <div class="wb-i">
+          <span class="ci">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3.4"/><path d="m8.4 12.2 2.4 2.4 4.8-5"/></svg>
+          </span>
+          <h4>One flat price</h4>
+          <p>No calculators, no comparing carts</p>
+        </div>
+
+        <div class="wb-i">
+          <span class="ci">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3.6 9.7l5.8-.8Z"/></svg>
+          </span>
+          <h4>Curated by experts</h4>
+          <p>Products picked to work well together</p>
+        </div>
+
+        <div class="wb-i">
+          <span class="ci">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 16.4V7.2h10.2v9.2"/><path d="M12.8 10.4h4l3.6 3.2v2.8h-7.6"/><circle cx="6.6" cy="18" r="1.9"/><circle cx="16.6" cy="18" r="1.9"/></svg>
+          </span>
+          <h4>Free shipping always</h4>
+          <p>Included on every bundle, all India</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane Why Bundles",
+  "presets": [
+    {
+      "name": "Purelane Why Bundles"
+    }
+  ]
+}
+{% endschema %}

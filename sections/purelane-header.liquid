@@ -1,0 +1,117 @@
+{% comment %}
+  PURELANE HEADER & NAV RAIL (1:1 PARITY WITH PROTOTYPE)
+{% endcomment %}
+
+{{ 'purelane.css' | asset_url | stylesheet_tag }}
+
+<style>
+  header{position:fixed;top:38px;left:0;right:0;z-index:50;padding:0 14px;transition:top .4s var(--ease)}
+  header.up{top:10px}
+  .navpill{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;gap:18px;padding:10px 14px;border-radius:999px}
+  .brand{display:flex;align-items:center;gap:11px;flex:0 0 auto;text-decoration:none}
+  .brand .mark{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+    background:linear-gradient(150deg,rgba(201,118,29,.20),rgba(75,58,143,.14));border:1px solid rgba(75,58,143,.18)}
+  .brand .mark svg{width:23px;height:23px;color:#b8701c !important}
+  .brand .txt{line-height:1.05}
+  .brand .n1{display:block;font-family:'Outfit',sans-serif;font-weight:800;font-size:16.5px;line-height:1.06;letter-spacing:.02em;text-transform:uppercase;color:var(--surface)}
+  .brand .n2{display:block;font-size:8.5px;font-weight:600;line-height:1.3;letter-spacing:.28em;text-transform:uppercase;color:var(--paper-3)}
+  .nav{display:none;gap:26px;margin:0 auto;font-size:13.5px;font-weight:500}
+  .nav a{color:var(--paper-2);padding:6px 0;position:relative;transition:.3s;text-decoration:none}
+  .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1.5px;background:#b8701c;transition:right .35s var(--ease)}
+  .nav a:hover{color:var(--surface)}
+  .nav a:hover::after{right:0}
+  .navtools{display:flex;align-items:center;gap:4px;margin-left:auto}
+  .ico{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:var(--paper-2);transition:.3s;position:relative;border:none;background:none;cursor:pointer}
+  .ico:hover{background:rgba(75,58,143,.09);color:var(--surface)}
+  .ico svg{width:18px;height:18px}
+  .dot{position:absolute;top:5px;right:5px;min-width:16px;height:16px;border-radius:999px;background:#4b3a8f;color:#f4fdf6;font-size:9.5px;font-weight:800;display:grid;place-items:center;padding:0 4px}
+  .burger{display:grid}
+  @media(max-width:600px){
+    .ico.hide-s{display:none}
+    .brand .mark{width:34px;height:34px}
+    .brand .n1{font-size:14.5px}
+    .brand .n2{font-size:7.6px;letter-spacing:.2em}
+    .navpill{gap:10px;padding:8px 10px}
+  }
+  @media(min-width:1024px){.nav{display:flex}.burger{display:none}}
+
+  .rail{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:44;display:none;flex-direction:column;gap:12px}
+  @media(min-width:1180px){.rail{display:flex}}
+  .rail a{width:8px;height:8px;border-radius:50%;background:rgba(75,58,143,.24);transition:.3s var(--ease);position:relative}
+  .rail a.on{background:#b8701c;box-shadow:0 0 0 5px rgba(201,118,29,.16);height:22px;border-radius:999px}
+</style>
+
+<header id="hdr">
+  <div class="navpill glass">
+    <a class="brand" href="#top" aria-label="Purelane home">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#b8701c">
+          <path d="M12 3 20.5 8v8L12 21 3.5 16V8L12 3Z"/>
+          <path d="M12 12 20.5 8M12 12v9M12 12 3.5 8"/>
+        </svg>
+      </span>
+      <span class="txt">
+        <span class="n1">Purelane</span>
+        <span class="n2">Clean, simply</span>
+      </span>
+    </a>
+    
+    <nav class="nav" aria-label="Main">
+      <a href="#top">Home</a>
+      <a href="#ingredients">Ingredients</a>
+      <a href="#how">How it works</a>
+      <a href="#shop">Shop</a>
+      <a href="#bundles">Bundles</a>
+    </nav>
+    
+    <div class="navtools">
+      <button class="ico hide-s" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <button class="ico hide-s" aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg></button>
+      <a href="{{ routes.cart_url }}" class="ico" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h2l2.2 10.4a1.6 1.6 0 0 0 1.6 1.3h7.6a1.6 1.6 0 0 0 1.6-1.3L20.5 9H6.4"/><circle cx="10" cy="20.5" r="1.1"/><circle cx="17.5" cy="20.5" r="1.1"/></svg>
+        <span class="dot">{{ cart.item_count }}</span>
+      </a>
+      <button class="ico burger" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<nav class="rail" aria-label="Section progress">
+  <a href="#top" class="on" aria-label="Hero"></a>
+  <a href="#ingredients" aria-label="Ingredients"></a>
+  <a href="#how" aria-label="How it works"></a>
+  <a href="#proof" aria-label="Proof"></a>
+  <a href="#bundles" aria-label="Bundles"></a>
+  <a href="#shop" aria-label="Shop"></a>
+  <a href="#reviews" aria-label="Reviews"></a>
+</nav>
+
+<script>
+  (function () {
+    var hdr = document.getElementById('hdr');
+    var railLinks = [].slice.call(document.querySelectorAll('.rail a'));
+    var targets = railLinks.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+
+    function sync() {
+      var y = window.scrollY || window.pageYOffset;
+      if (hdr) hdr.classList.toggle('up', y > 90);
+      var mid = y + window.innerHeight * 0.42, idx = 0;
+      targets.forEach(function (t, i) { if (t && t.offsetTop <= mid) idx = i; });
+      railLinks.forEach(function (a, i) { a.classList.toggle('on', i === idx); });
+    }
+
+    window.addEventListener('scroll', sync, { passive: true });
+    sync();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Purelane Header",
+  "presets": [
+    {
+      "name": "Purelane Header"
+    }
+  ]
+}
+{% endschema %}

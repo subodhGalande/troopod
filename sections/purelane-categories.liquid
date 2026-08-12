@@ -1,0 +1,65 @@
+{% comment %}
+  PURELANE CATEGORIES SECTION (1:1 PARITY WITH PROTOTYPE)
+{% endcomment %}
+
+{{ 'purelane.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .cats{display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
+  @media(min-width:900px){.cats{grid-template-columns:repeat(4,1fr)}}
+  .cat{padding:0;display:flex;flex-direction:column;transition:.4s var(--ease);text-decoration:none}
+  .cat:hover{transform:translateY(-5px)}
+  .cat .ph{height:194px;display:flex;align-items:flex-end;justify-content:center;padding:14px 12px 0;position:relative}
+  .cat .ph::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(110% 80% at 50% 6%,rgba(255,255,255,.66),rgba(236,230,247,.30) 58%,transparent 80%)}
+  .cat .ph .pimg{position:relative;height:176px;filter:drop-shadow(0 10px 15px rgba(0,74,66,.14))}
+  .cat .txt{padding:14px 16px 18px;border-top:1px solid rgba(75,58,143,.11)}
+  .cat .txt h4{font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--surface);margin-bottom:5px}
+  .cat .txt p{font-size:11.8px;color:var(--paper-3)}
+  @media(max-width:760px){
+    .cat .ph{height:158px}
+    .cat .ph .pimg{height:142px}
+  }
+</style>
+
+<section class="sec" id="categories" data-scene="4">
+  <div class="wrap">
+    <div class="panel-head">
+      <span class="kicker">Bundle categories</span>
+      <h2 class="d2" style="margin-top:12px">Find the right bundle for you</h2>
+    </div>
+
+    <div class="cats">
+      <a class="glass cat" href="#combos">
+        <span class="ph"><span class="pimg p-kitchen" role="img"></span></span>
+        <span class="txt"><h4>Kitchen bundle</h4><p>Grease, dishes &amp; more</p></span>
+      </a>
+
+      <a class="glass cat" href="#combos">
+        <span class="ph"><span class="pimg p-toilet" role="img"></span></span>
+        <span class="txt"><h4>Bathroom bundle</h4><p>Deep clean &amp; disinfect</p></span>
+      </a>
+
+      <a class="glass cat" href="#combos">
+        <span class="ph"><span class="pimg p-laundry" role="img"></span></span>
+        <span class="txt"><h4>Laundry bundle</h4><p>Softer, fresher wash</p></span>
+      </a>
+
+      <a class="glass cat" href="#combos">
+        <span class="ph"><span class="pimg p-tap" role="img"></span></span>
+        <span class="txt"><h4>Hard water bundle</h4><p>Melt away limescale</p></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane Categories",
+  "presets": [
+    {
+      "name": "Purelane Categories"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,197 @@
+{% comment %}
+  PURELANE COMBOS SECTION (1:1 PARITY WITH PROTOTYPE)
+{% endcomment %}
+
+{{ 'purelane.css' | asset_url | stylesheet_tag }}
+
+<section class="sec" id="combos" data-scene="3">
+  <div class="wrap">
+    <div class="panel-head">
+      <span class="kicker">{{ section.settings.kicker | escape }}</span>
+      <h2 class="d2" style="margin-top:12px">{{ section.settings.heading | escape }}</h2>
+      <div class="rule"><i></i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg><i></i></div>
+      <p class="lede" style="margin:14px auto 0">{{ section.settings.subtext | escape }}</p>
+    </div>
+
+    <div class="comborail">
+      {%- for block in section.blocks -%}
+        <article class="glass combo {% if block.settings.is_hero %}hero-combo{% endif %}" {{ block.shopify_attributes }}>
+          <div class="tray">
+            {%- if block.settings.save_badge != blank -%}
+              <span class="save">{{ block.settings.save_badge }}</span>
+            {%- endif -%}
+            {%- if block.settings.flag_badge != blank -%}
+              <span class="flag">{{ block.settings.flag_badge }}</span>
+            {%- endif -%}
+
+            <div class="stack">
+              <span class="it">
+                <span class="pimg p-kitchen" role="img"></span>
+                <span>Cuts grease</span>
+              </span>
+              <span class="plus" aria-hidden="true">+</span>
+              <span class="it">
+                <span class="pimg p-dish" role="img"></span>
+                <span>Clean dishes</span>
+              </span>
+              <span class="plus" aria-hidden="true">+</span>
+              <span class="it">
+                <span class="pimg p-tap" role="img"></span>
+                <span>Limescale fix</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="body">
+            <h3>{{ block.settings.title }}</h3>
+            <div class="cnt">{{ block.settings.item_count }}</div>
+            <p class="inc">{{ block.settings.description }}</p>
+
+            <div class="prow">
+              <strong>{{ block.settings.price }}</strong>
+              <s>{{ block.settings.compare_price }}</s>
+              <em>{{ block.settings.save_amount }}</em>
+            </div>
+
+            <div class="fine">Inclusive of all taxes &middot; COD available</div>
+            <a class="btn {% if block.settings.is_hero %}btn-primary{% else %}btn-ghost{% endif %}" href="#bundles">
+              Shop bundle
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+            </a>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane Combos",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Pre-built to save you money"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Best selling combos"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "combo",
+      "name": "Combo Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Kitchen essentials"
+        },
+        {
+          "type": "text",
+          "id": "item_count",
+          "label": "Item Count Tag",
+          "default": "3 products"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner. Everything for a sparkling kitchen, no need to pick separately."
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "₹499"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare Price",
+          "default": "₹897"
+        },
+        {
+          "type": "text",
+          "id": "save_amount",
+          "label": "Save Tag",
+          "default": "Save ₹398"
+        },
+        {
+          "type": "text",
+          "id": "save_badge",
+          "label": "Save Badge",
+          "default": "You save ₹398"
+        },
+        {
+          "type": "text",
+          "id": "flag_badge",
+          "label": "Flag Badge",
+          "default": "Most popular"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_hero",
+          "label": "Hero Combo (Highlight)",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane Combos",
+      "blocks": [
+        {
+          "type": "combo",
+          "settings": {
+            "title": "Kitchen essentials",
+            "item_count": "3 products",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "save_amount": "Save ₹398",
+            "save_badge": "You save ₹398",
+            "flag_badge": "Most popular"
+          }
+        },
+        {
+          "type": "combo",
+          "settings": {
+            "title": "Complete home bundle",
+            "item_count": "5 products",
+            "price": "₹799",
+            "compare_price": "₹1,495",
+            "save_amount": "Save ₹696",
+            "save_badge": "Biggest saving",
+            "flag_badge": "Best value",
+            "is_hero": true
+          }
+        },
+        {
+          "type": "combo",
+          "settings": {
+            "title": "Bathroom deep clean",
+            "item_count": "3 products",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "save_amount": "Save ₹398",
+            "save_badge": "You save ₹398"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

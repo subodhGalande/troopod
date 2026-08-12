@@ -1,0 +1,46 @@
+{
+  "sections": {
+    "purelane_ticker": {
+      "type": "purelane-ticker"
+    },
+    "purelane_header": {
+      "type": "purelane-header"
+    },
+    "purelane_hero": {
+      "type": "purelane-hero"
+    },
+    "purelane_reviews": {
+      "type": "purelane-reviews"
+    },
+    "purelane_ingredients": {
+      "type": "purelane-ingredients"
+    },
+    "purelane_how": {
+      "type": "purelane-how"
+    },
+    "purelane_proof": {
+      "type": "purelane-proof"
+    },
+    "purelane_bundles": {
+      "type": "purelane-bundles"
+    },
+    "purelane_shop": {
+      "type": "purelane-shop"
+    },
+    "purelane_trust": {
+      "type": "purelane-trust"
+    }
+  },
+  "order": [
+    "purelane_ticker",
+    "purelane_header",
+    "purelane_hero",
+    "purelane_reviews",
+    "purelane_ingredients",
+    "purelane_how",
+    "purelane_proof",
+    "purelane_bundles",
+    "purelane_shop",
+    "purelane_trust"
+  ]
+}
