@@ -19,7 +19,59 @@
       "type": "purelane-how"
     },
     "purelane_bundles": {
-      "type": "purelane-bundles"
+      "type": "bundles-purelane",
+      "blocks": {
+        "tier_1": {
+          "type": "tier",
+          "settings": {
+            "title": "Starter",
+            "qty_number": "2",
+            "price": "₹349",
+            "compare_price": "₹598",
+            "subtitle": "Flat ₹174 per product",
+            "svg_icons": "p-combo2",
+            "feature_1": "Pick any two products",
+            "feature_2": "Free shipping across India",
+            "btn_text": "Build this box"
+          }
+        },
+        "tier_2": {
+          "type": "tier",
+          "settings": {
+            "title": "Most popular",
+            "qty_number": "3",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "subtitle": "Flat ₹166 per product",
+            "svg_icons": "p-kitchen, p-tap, p-dish",
+            "feature_1": "Pick any three products",
+            "feature_2": "Covers kitchen and laundry",
+            "feature_3": "Free shipping across India",
+            "btn_text": "Build this box",
+            "is_popular": true
+          }
+        },
+        "tier_3": {
+          "type": "tier",
+          "settings": {
+            "title": "Whole home",
+            "qty_number": "5",
+            "price": "₹799",
+            "compare_price": "₹1495",
+            "subtitle": "Flat ₹160 per product",
+            "svg_icons": "p-kitchen, p-tap, p-floor, p-toilet, p-laundry",
+            "feature_1": "Pick any five products",
+            "feature_2": "Every room in one order",
+            "feature_3": "Free shipping across India",
+            "btn_text": "Build this box"
+          }
+        }
+      },
+      "block_order": [
+        "tier_1",
+        "tier_2",
+        "tier_3"
+      ]
     },
     "purelane_combos": {
       "type": "combos-purelane",
