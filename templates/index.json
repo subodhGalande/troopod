@@ -236,6 +236,110 @@
         "pillar_3"
       ]
     },
+    "purelane_proof": {
+      "type": "purelane-proof",
+      "settings": {
+        "kicker": "Why it works",
+        "title": "Tough on grime.\nGentle on everything else.",
+        "text": "Every formula is built on plant-derived cleansers and essential oils. It behaves exactly like the cleaner you are used to, minus the things you never signed up for.",
+        "button_label": "See the ingredient list",
+        "button_link": "#ingredients"
+      },
+      "blocks": {
+        "prod_1": {
+          "type": "product",
+          "settings": {
+            "product": "kitchen-cleaner",
+            "svg_icon": "p-kitchen",
+            "note": "Foam lifts grease, no scrubbing"
+          }
+        },
+        "prod_2": {
+          "type": "product",
+          "settings": {
+            "product": "tap-cleaner-limescale-remover",
+            "svg_icon": "p-tap",
+            "note": "Melts hard water stains"
+          }
+        },
+        "prod_3": {
+          "type": "product",
+          "settings": {
+            "product": "natural-laundry-detergent",
+            "svg_icon": "p-laundry",
+            "note": "Tough on odour, soft on fabric"
+          }
+        },
+        "prod_4": {
+          "type": "product",
+          "settings": {
+            "product": "toilet-cleaner",
+            "svg_icon": "p-toilet",
+            "note": "Kills 99.9% of germs"
+          }
+        },
+        "prod_5": {
+          "type": "product",
+          "settings": {
+            "product": "herbal-floor-cleaner",
+            "svg_icon": "p-floor",
+            "note": "Neem powered, pet safe"
+          }
+        },
+        "prod_6": {
+          "type": "product",
+          "settings": {
+            "product": "dishwash-gel",
+            "svg_icon": "p-dish",
+            "note": "Cuts grease, kind to hands"
+          }
+        },
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "ring_text": "99.9%",
+            "title": "Germ kill",
+            "text": "Tested against germs and bacteria"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "ring_text": "0%",
+            "title": "Sulphates",
+            "text": "No SLS, chlorine or parabens"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "ring_text": "100%",
+            "title": "Plant based",
+            "text": "Cleansers derived from plants"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "ring_text": "4.8",
+            "title": "Rated",
+            "text": "Across 8,000+ verified reviews"
+          }
+        }
+      },
+      "block_order": [
+        "prod_1",
+        "prod_2",
+        "prod_3",
+        "prod_4",
+        "prod_5",
+        "prod_6",
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ]
+    },
     "purelane_bundles": {
       "type": "bundles-purelane",
       "blocks": {
@@ -403,6 +507,7 @@
     "purelane_reviews",
     "purelane_ingredients",
     "purelane_how",
+    "purelane_proof",
     "purelane_combos",
     "purelane_bundles",
     "purelane_shop",
