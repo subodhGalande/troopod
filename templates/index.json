@@ -43,7 +43,44 @@
       "type": "purelane-header"
     },
     "purelane_hero": {
-      "type": "purelane-hero"
+      "type": "purelane-hero",
+      "blocks": {
+        "slide_1": {
+          "type": "product_slide",
+          "settings": {
+            "custom_html": "<span class=\"hp p-kbtl a d1\" role=\"img\" aria-label=\"Purelane foaming kitchen cleaner spray bottle\"></span>",
+            "label": "Single bottle",
+            "price": "₹200",
+            "compare_price": "₹299",
+            "savings_text": "33% off"
+          }
+        },
+        "slide_2": {
+          "type": "product_slide",
+          "settings": {
+            "custom_html": "<span class=\"hp p-tbtl a d1\" role=\"img\" aria-label=\"Purelane tap cleaner and limescale remover spray bottle\"></span><span class=\"hp p-kbtl b d2\" role=\"img\" aria-label=\"Purelane foaming kitchen cleaner spray bottle\"></span>",
+            "label": "Any 2 products",
+            "price": "₹349",
+            "compare_price": "₹598",
+            "savings_text": "Save ₹249"
+          }
+        },
+        "slide_3": {
+          "type": "product_slide",
+          "settings": {
+            "custom_html": "<span class=\"hp p-tbtl a d1\" role=\"img\" aria-label=\"Purelane tap cleaner and limescale remover spray bottle\"></span><span class=\"hp p-mbtl b d2\" role=\"img\" aria-label=\"Purelane copper, bronze and brass cleaner pump bottle\"></span><span class=\"hp p-kbtl c d3\" role=\"img\" aria-label=\"Purelane foaming kitchen cleaner spray bottle\"></span>",
+            "label": "Any 3 products",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "savings_text": "Save ₹398"
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ]
     },
     "purelane_reviews": {
       "type": "purelane-reviews",
@@ -108,10 +145,96 @@
       ]
     },
     "purelane_ingredients": {
-      "type": "purelane-ingredients"
+      "type": "purelane-ingredients",
+      "blocks": {
+        "ing_1": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Coconut",
+            "text": "Plant-derived cleansers that lift grease",
+            "svg_icon": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"#ece6f7\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"50\" cy=\"62\" r=\"25\"/><path d=\"M31 53c9-6 29-6 38 0\" stroke=\"#f0a03c\"/><path d=\"M41 63c4 8 14 8 18 0\" opacity=\".55\"/><path d=\"M50 37V25\"/><path d=\"M50 27C42 18 30 16 21 21c5 10 17 13 29 6Z\" stroke=\"#f0a03c\"/><path d=\"M50 27c8-9 20-11 29-6-5 10-17 13-29 6Z\" stroke=\"#f0a03c\"/></svg>"
+          }
+        },
+        "ing_2": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Orange peel",
+            "text": "Natural degreaser and fresh citrus lift",
+            "svg_icon": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"#ece6f7\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"45\" cy=\"58\" r=\"23\"/><path d=\"M45 35v46M22 58h46\" opacity=\".4\"/><path d=\"M29 42 61 74M61 42 29 74\" opacity=\".26\"/><path d=\"M62 28c13-1 20 10 15 20-4 8-15 9-19 2\" stroke=\"#f0a03c\"/><path d=\"M45 34c-3-8 2-15 10-16 1 9-3 15-10 16Z\" stroke=\"#f0a03c\"/></svg>"
+          }
+        },
+        "ing_3": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Soap nut",
+            "text": "A traditional plant foaming agent",
+            "svg_icon": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"#ece6f7\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"36\" cy=\"66\" r=\"16\"/><circle cx=\"64\" cy=\"69\" r=\"14\"/><circle cx=\"50\" cy=\"43\" r=\"14\"/><path d=\"M50 29V17\"/><path d=\"M50 21c-8-8-18-8-23-2 7 8 17 10 23 2Z\" stroke=\"#f0a03c\"/><path d=\"M31 60a5 5 0 0 1 4-4\" opacity=\".6\"/><path d=\"M46 38a5 5 0 0 1 4-4\" opacity=\".6\"/></svg>"
+          }
+        },
+        "ing_4": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Neem",
+            "text": "Time-tested antibacterial from the tree",
+            "svg_icon": "<svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"#ece6f7\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 82C36 66 58 44 82 20\" stroke=\"#f0a03c\"/><path d=\"M27 73c-6-7-4-15 3-18 4 7 3 14-3 18Z\"/><path d=\"M31 69c8-4 15 0 16 8-8 2-14-1-16-8Z\"/><path d=\"M41 59c-6-7-4-16 3-19 4 7 3 15-3 19Z\"/><path d=\"M45 55c9-4 16 0 17 8-8 2-15-1-17-8Z\"/><path d=\"M56 44c-6-7-4-16 3-19 4 7 3 15-3 19Z\"/><path d=\"M60 40c9-4 16 0 17 8-8 2-15-1-17-8Z\"/><path d=\"M70 30c-5-7-3-15 4-18 3 7 2 14-4 18Z\"/></svg>"
+          }
+        },
+        "ing_5": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Lemongrass",
+            "text": "Clean fragrance with nothing synthetic",
+            "svg_icon": "<svg viewBox=\"0 0 100 100\" fill=\"none\"><g fill=\"#ece6f7\" opacity=\".88\"><path d=\"M50 88C44 62 39 42 24 15c15 27 22 47 29 73Z\"/><path d=\"M52 88C50 60 50 39 44 9c11 29 13 50 12 79Z\"/><path d=\"M54 88C56 60 60 40 74 13c-11 28-15 48-16 75Z\"/><path d=\"M56 88C60 64 68 48 86 27c-14 22-21 38-26 61Z\"/><path d=\"M48 88C44 66 36 50 18 30c14 21 22 36 27 58Z\"/></g><path d=\"M50 88h6\" stroke=\"#f0a03c\" stroke-width=\"2.4\" stroke-linecap=\"round\"/></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "ing_1",
+        "ing_2",
+        "ing_3",
+        "ing_4",
+        "ing_5"
+      ]
     },
     "purelane_how": {
-      "type": "purelane-how"
+      "type": "purelane-how",
+      "blocks": {
+        "pillar_1": {
+          "type": "pillar",
+          "settings": {
+            "heading": "Less scrubbing",
+            "text": "A foaming formulation. The foam clings to grease and lifts it, so you wipe instead of scrub.",
+            "btn_text": "Learn more",
+            "btn_link": "#shop",
+            "svg_icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"8\" cy=\"8.5\" r=\"3.2\"/><circle cx=\"16.4\" cy=\"6.6\" r=\"2.2\"/><circle cx=\"15\" cy=\"13\" r=\"2.8\"/><circle cx=\"8.6\" cy=\"15.6\" r=\"2.1\"/><path d=\"M4 21h16\"/></svg>"
+          }
+        },
+        "pillar_2": {
+          "type": "pillar",
+          "settings": {
+            "heading": "Clean ingredients",
+            "text": "No sulphates, no chlorine, no synthetic fragrance. Nothing on the label you would not want near your food.",
+            "btn_text": "Learn more",
+            "btn_link": "#ingredients",
+            "svg_icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3 4.5 6v6.2c0 4.3 3.1 7.6 7.5 8.8 4.4-1.2 7.5-4.5 7.5-8.8V6L12 3Z\"/><path d=\"m9 12 2.2 2.2L15.4 10\"/></svg>"
+          }
+        },
+        "pillar_3": {
+          "type": "pillar",
+          "settings": {
+            "heading": "Safe around everyone",
+            "text": "Gentle on hands, safe around kids and pets, and it leaves no toxic residue on the surfaces you touch every day.",
+            "btn_text": "Learn more",
+            "btn_link": "#proof",
+            "svg_icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 20s-7-4.4-7-9.4A4.1 4.1 0 0 1 12 8a4.1 4.1 0 0 1 7 2.6c0 5-7 9.4-7 9.4Z\"/></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "pillar_1",
+        "pillar_2",
+        "pillar_3"
+      ]
     },
     "purelane_bundles": {
       "type": "bundles-purelane",
