@@ -1,3 +1,10 @@
+<style>
+  .drawer-card.out-of-stock {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    cursor: not-allowed;
+  }
+</style>
 <div id="purelane-bundle-drawer" class="bundle-drawer-overlay" aria-hidden="true">
   <div class="bundle-drawer">
     <div class="drawer-header">
@@ -11,15 +18,21 @@
       {% if collection != blank and collection.products.size > 0 %}
         <div class="drawer-grid">
           {% for product in collection.products %}
-            {% assign v_id = product.variants.first.id %}
+            {% assign is_available = product.available %}
+            {% assign v_id = product.first_available_variant.id | default: product.variants.first.id %}
             {% if v_id %}
-              <div class="drawer-card" data-variant-id="{{ v_id }}" data-price="{{ product.price }}">
+              <div class="drawer-card {% unless is_available %}out-of-stock{% endunless %}" 
+                   {% if is_available %}data-variant-id="{{ v_id }}"{% endif %} 
+                   data-price="{{ product.price }}">
                 <div class="drawer-img">
                   {% if product.featured_image %}
                     <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title | escape }}" loading="lazy">
                   {% else %}
                     <img src="{{ 'fallback.webp' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
                   {% endif %}
+                  {% unless is_available %}
+                    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.7);color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;padding:4px 8px;border-radius:4px;white-space:nowrap;">Sold out</div>
+                  {% endunless %}
                   <div class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
                 </div>
                 <div class="drawer-info">
@@ -108,6 +121,8 @@
     
     cards.forEach(card => {
       card.addEventListener('click', function() {
+        if (this.classList.contains('out-of-stock')) return;
+        
         const vid = this.getAttribute('data-variant-id');
         
         if (this.classList.contains('selected')) {
@@ -133,14 +148,21 @@
       
       const items = selectedVariants.map(id => ({ id: id, quantity: 1 }));
       
-      fetch(window.Shopify.routes.root + 'cart/add.js', {
+      fetch('/cart/add.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items: items })
       })
       .then(response => response.json())
       .then(data => {
-        window.location.href = window.Shopify.routes.root + 'cart';
+        if (data.status && data.status !== 200) {
+          alert('Error: ' + (data.description || data.message || 'Could not add to cart.'));
+          addBtn.innerText = originalText;
+          addBtn.style.opacity = '1';
+          addBtn.style.pointerEvents = 'auto';
+        } else {
+          window.location.href = '/cart';
+        }
       })
       .catch(error => {
         console.error('Error:', error);

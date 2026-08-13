@@ -85,7 +85,7 @@
     <div class="fine">Inclusive of all taxes &middot; COD available</div>
     {% assign variant_array = '' %}
     {% for product in block.settings.product_list %}
-      {% assign v_id = product.variants.first.id %}
+      {% assign v_id = product.first_available_variant.id | default: product.variants.first.id %}
       {% if v_id %}
         {% assign variant_array = variant_array | append: v_id | append: ',' %}
       {% endif %}

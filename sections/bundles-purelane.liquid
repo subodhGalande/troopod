@@ -17,9 +17,7 @@
     </div>
   </div>
 
-  {% if section.settings.bundle_collection != blank %}
-    {% render 'bundle-drawer-purelane', collection: collections[section.settings.bundle_collection] %}
-  {% endif %}
+  {% render 'bundle-drawer-purelane', collection: collections[section.settings.bundle_collection] %}
 </section>
 
 {% schema %}

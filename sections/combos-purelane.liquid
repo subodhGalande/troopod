@@ -51,7 +51,7 @@
           this.style.opacity = '0.7';
           this.style.pointerEvents = 'none';
           
-          fetch(window.Shopify.routes.root + 'cart/add.js', {
+          fetch('/cart/add.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ items: items })
@@ -60,7 +60,14 @@
             return response.json();
           })
           .then(function(data) {
-            window.location.href = window.Shopify.routes.root + 'cart';
+            if (data.status && data.status !== 200) {
+              alert('Error: ' + (data.description || data.message || 'Could not add to cart.'));
+              btn.innerHTML = originalText;
+              btn.style.opacity = '1';
+              btn.style.pointerEvents = 'auto';
+            } else {
+              window.location.href = '/cart';
+            }
           })
           .catch(function(error) {
             console.error('Error:', error);
