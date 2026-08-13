@@ -1,7 +1,43 @@
 {
   "sections": {
     "purelane_ticker": {
-      "type": "purelane-ticker"
+      "type": "purelane-ticker",
+      "blocks": {
+        "item_1": {
+          "type": "ticker_item",
+          "settings": {
+            "text": "Free shipping",
+            "bold_text": "on every bundle across India"
+          }
+        },
+        "item_2": {
+          "type": "ticker_item",
+          "settings": {
+            "text": "100% plant-based",
+            "bold_text": "and non-toxic"
+          }
+        },
+        "item_3": {
+          "type": "ticker_item",
+          "settings": {
+            "text": "Loved by",
+            "bold_text": "30,000+ happy homes"
+          }
+        },
+        "item_4": {
+          "type": "ticker_item",
+          "settings": {
+            "text": "Buy 3",
+            "bold_text": "at flat ₹499"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ]
     },
     "purelane_header": {
       "type": "purelane-header"
@@ -10,7 +46,66 @@
       "type": "purelane-hero"
     },
     "purelane_reviews": {
-      "type": "purelane-reviews"
+      "type": "purelane-reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "headline": "Works like a charm",
+            "body": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better.",
+            "author": "Anita",
+            "product_name": "Laundry detergent",
+            "stars": 5
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "headline": "Best dishwash ever",
+            "body": "Our old dishwash left my help with dry, cracked skin. That stopped completely after we switched.",
+            "author": "Priya",
+            "product_name": "Dishwash gel",
+            "stars": 5
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "headline": "Great product, great packaging",
+            "body": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic.",
+            "author": "Sunita",
+            "product_name": "Liquid handwash",
+            "stars": 5
+          }
+        },
+        "review_4": {
+          "type": "review",
+          "settings": {
+            "headline": "Dog friendly",
+            "body": "We switched because chemical floor cleaners were setting off my dog's allergies. No reactions since.",
+            "author": "Rohit S.",
+            "product_name": "Floor cleaner",
+            "stars": 5
+          }
+        },
+        "review_5": {
+          "type": "review",
+          "settings": {
+            "headline": "Sparkling taps again",
+            "body": "Hard water had ruined our bathroom fittings. Two sprays and the scale wipes straight off, no scrubbing.",
+            "author": "Verified buyer",
+            "product_name": "Tap cleaner",
+            "stars": 5
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4",
+        "review_5"
+      ]
     },
     "purelane_ingredients": {
       "type": "purelane-ingredients"

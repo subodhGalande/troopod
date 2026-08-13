@@ -1,44 +1,77 @@
 {% comment %}
-  PURELANE TICKER SECTION (1:1 PARITY WITH PROTOTYPE)
+  PURELANE TICKER SECTION (DYNAMIC)
 {% endcomment %}
 
 {{ 'purelane.css' | asset_url | stylesheet_tag }}
 
 <div class="ticker" aria-hidden="true">
   <div class="track">
-    <span>Free shipping <b>on every bundle across India</b></span>
-    <span>100% plant-based <b>and non-toxic</b></span>
-    <span>Loved by <b>30,000+ happy homes</b></span>
-    <span>Buy 3 <b>at flat ₹499</b></span>
-    <span>Free shipping <b>on every bundle across India</b></span>
-    <span>100% plant-based <b>and non-toxic</b></span>
-    <span>Loved by <b>30,000+ happy homes</b></span>
-    <span>Buy 3 <b>at flat ₹499</b></span>
-    <span>Free shipping <b>on every bundle across India</b></span>
-    <span>100% plant-based <b>and non-toxic</b></span>
-    <span>Loved by <b>30,000+ happy homes</b></span>
-    <span>Buy 3 <b>at flat ₹499</b></span>
-    <span>Free shipping <b>on every bundle across India</b></span>
-    <span>100% plant-based <b>and non-toxic</b></span>
-    <span>Loved by <b>30,000+ happy homes</b></span>
-    <span>Buy 3 <b>at flat ₹499</b></span>
-    <span>Free shipping <b>on every bundle across India</b></span>
-    <span>100% plant-based <b>and non-toxic</b></span>
-    <span>Loved by <b>30,000+ happy homes</b></span>
-    <span>Buy 3 <b>at flat ₹499</b></span>
-    <span>Free shipping <b>on every bundle across India</b></span>
-    <span>100% plant-based <b>and non-toxic</b></span>
-    <span>Loved by <b>30,000+ happy homes</b></span>
-    <span>Buy 3 <b>at flat ₹499</b></span>
+    {% for block in section.blocks %}
+      <span {{ block.shopify_attributes }}>{{ block.settings.text }} <b>{{ block.settings.bold_text }}</b></span>
+    {% endfor %}
+    {% for block in section.blocks %}
+      <span aria-hidden="true">{{ block.settings.text }} <b>{{ block.settings.bold_text }}</b></span>
+    {% endfor %}
   </div>
 </div>
 
 {% schema %}
 {
   "name": "Purelane Ticker",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "ticker_item",
+      "name": "Ticker Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Regular Text",
+          "default": "Free shipping"
+        },
+        {
+          "type": "text",
+          "id": "bold_text",
+          "label": "Bold Text",
+          "default": "on every bundle across India"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Purelane Ticker"
+      "name": "Purelane Ticker",
+      "blocks": [
+        {
+          "type": "ticker_item",
+          "settings": {
+            "text": "Free shipping",
+            "bold_text": "on every bundle across India"
+          }
+        },
+        {
+          "type": "ticker_item",
+          "settings": {
+            "text": "100% plant-based",
+            "bold_text": "and non-toxic"
+          }
+        },
+        {
+          "type": "ticker_item",
+          "settings": {
+            "text": "Loved by",
+            "bold_text": "30,000+ happy homes"
+          }
+        },
+        {
+          "type": "ticker_item",
+          "settings": {
+            "text": "Buy 3",
+            "bold_text": "at flat ₹499"
+          }
+        }
+      ]
     }
   ]
 }
