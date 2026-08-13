@@ -1,0 +1,448 @@
+{{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+
+<style>
+  /* Light Mode Cart Variables */
+  :root {
+    --lm-bg: #FAF9F6;
+    --lm-surface: #ffffff;
+    --lm-text: #17102b;
+    --lm-text-light: #524f63;
+    --lm-border: #E8E5E1;
+    --lm-box: #F1F0E9;
+    --lm-brand: #4b3a8f;
+  }
+  
+  /* Hide side scroll progress on cart page */
+  .rail {
+    display: none !important;
+  }
+
+  .pure-cart-wrapper {
+    max-width: var(--maxw, 1180px);
+    margin: 140px auto 100px;
+    padding: 0 20px;
+    font-family: 'Inter', sans-serif;
+    color: var(--paper);
+  }
+
+  .pure-cart-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--surface);
+    margin-bottom: 30px;
+  }
+
+  .pure-cart-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  
+  @media (min-width: 900px) {
+    .pure-cart-layout {
+      grid-template-columns: 1fr 380px;
+    }
+  }
+
+  /* LEFT COLUMN: Items */
+  .pure-cart-items-container {
+    width: 100%;
+  }
+  
+  .pure-cart-header {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px;
+    gap: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(236,230,247,0.15);
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--paper-2);
+  }
+  
+  .pure-cart-header-title { grid-column: 1; }
+  .pure-cart-header-qty { grid-column: 2; text-align: center; }
+  .pure-cart-header-price { grid-column: 3; text-align: right; }
+
+  @media (max-width: 600px) {
+    .pure-cart-header { display: none; }
+  }
+
+  .pure-cart-item {
+    display: grid;
+    grid-template-columns: 90px 1fr 100px 100px;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(236,230,247,0.1);
+    align-items: center;
+  }
+  
+  @media (max-width: 600px) {
+    .pure-cart-item {
+      grid-template-columns: 80px 1fr;
+      grid-template-rows: auto auto;
+      padding: 20px 0;
+      gap: 12px 16px;
+    }
+    .pure-cart-item-qty { grid-column: 2; grid-row: 2; }
+    .pure-cart-item-price { grid-column: 2; grid-row: 2; justify-self: end; }
+  }
+
+  .pure-cart-image-wrap {
+    width: 100%;
+    aspect-ratio: 1;
+    background: rgba(236,230,247,0.05);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .pure-cart-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .pure-cart-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .pure-cart-title-link {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--surface);
+    text-decoration: none;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .pure-cart-edit-link {
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  .pure-qty-widget {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--lm-border);
+    border-radius: 6px;
+    height: 38px;
+    background: var(--lm-surface);
+    overflow: hidden;
+    width: 90px;
+    margin: 0 auto;
+  }
+  .pure-qty-widget input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    color: var(--lm-text);
+    font-size: 14px;
+    appearance: none;
+    -moz-appearance: textfield;
+  }
+  .pure-qty-widget input::-webkit-outer-spin-button,
+  .pure-qty-widget input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .pure-qty-controls {
+    display: flex;
+    flex-direction: column;
+    width: 24px;
+    border-left: 1px solid var(--lm-border);
+    height: 100%;
+  }
+  .pure-qty-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--lm-text-light);
+    cursor: pointer;
+  }
+  .pure-qty-btn:hover { background: var(--lm-box); color: var(--lm-text); }
+  .pure-qty-btn:first-child { border-bottom: 1px solid var(--lm-border); }
+  .pure-qty-btn svg { width: 10px; height: 10px; stroke-width: 3px; }
+  
+  .pure-cart-price-total {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: right;
+  }
+  
+  .pure-cart-remove {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #cc0000;
+    text-decoration: underline;
+  }
+
+  /* RIGHT COLUMN: Summary */
+  .pure-cart-summary {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 26px;
+    padding: 34px;
+    box-shadow: 0 18px 48px rgba(23, 16, 43, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
+  }
+  .pure-summary-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--lm-border);
+  }
+  
+  .pure-summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    font-size: 15px;
+    color: var(--lm-text-light);
+  }
+  .pure-summary-row b {
+    color: var(--lm-text);
+    font-weight: 700;
+  }
+  
+  .pure-summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--lm-border);
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--lm-text);
+  }
+  
+  .pure-checkout-btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background: var(--lm-brand);
+    color: #ffffff;
+    height: 50px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 24px;
+    box-shadow: 0 12px 30px rgba(75, 58, 143, 0.24);
+    transition: 0.3s ease;
+  }
+  .pure-checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(75, 58, 143, 0.34);
+  }
+  
+  .pure-continue-btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--lm-brand);
+    border: 1.5px solid var(--lm-brand);
+    height: 50px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 12px;
+    transition: 0.3s ease;
+  }
+  .pure-continue-btn:hover {
+    background: var(--lm-brand);
+    color: #ffffff;
+  }
+  
+  .pure-promo-box {
+    margin-top: 30px;
+  }
+  .pure-promo-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .pure-promo-input-wrap {
+    display: flex;
+    align-items: center;
+    background: var(--lm-surface);
+    border: 1px solid var(--lm-border);
+    border-radius: 6px;
+    height: 44px;
+    padding: 0 12px;
+  }
+  .pure-promo-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+  }
+  .pure-promo-apply {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--lm-brand);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .pure-empty-cart {
+    text-align: center;
+    padding: 80px 20px;
+  }
+  .pure-empty-cart h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+</style>
+
+<div class="pure-cart-wrapper">
+  {% if cart == empty %}
+    <div class="pure-empty-cart">
+      <h2>Your Cart is Empty</h2>
+      <a href="/collections/all" class="pure-checkout-btn" style="max-width: 300px; margin: 0 auto;">Shop Now</a>
+    </div>
+  {% else %}
+    <h1 class="pure-cart-title">My Cart</h1>
+    
+    <div class="pure-cart-layout">
+      <!-- Left Column: Items -->
+      <form action="{{ routes.cart_url }}" class="pure-cart-items-container" method="post" id="cart">
+        <div class="pure-cart-header">
+          <div class="pure-cart-header-title">Product</div>
+          <div class="pure-cart-header-qty">Quantity</div>
+          <div class="pure-cart-header-price">Price</div>
+        </div>
+        
+        <div class="pure-cart-items-list" id="main-cart-items">
+          {% for item in cart.items %}
+            <div class="pure-cart-item cart-item" id="CartItem-{{ item.index | plus: 1 }}">
+              <!-- Image -->
+              <div class="pure-cart-image-wrap">
+                {% if item.image %}
+                  <img src="{{ item.image | img_url: '200x' }}" alt="{{ item.title | escape }}">
+                {% else %}
+                  <img src="{{ 'fallback.webp' | asset_url }}" alt="{{ item.title | escape }}">
+                {% endif %}
+              </div>
+              
+              <!-- Details -->
+              <div class="pure-cart-details">
+                <a href="{{ item.url }}" class="pure-cart-title-link">{{ item.product.title }}</a>
+                {% if item.variant.title != 'Default Title' %}
+                  <div style="font-size: 13px; color: var(--lm-text-light); margin-bottom: 4px;">{{ item.variant.title }}</div>
+                {% endif %}
+                <a href="{{ item.url_to_remove }}" class="pure-cart-edit-link">Remove</a>
+              </div>
+              
+              <!-- Quantity Selector -->
+              <div class="pure-cart-item-qty">
+                <div class="pure-qty-widget">
+                  <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" id="updates_{{ item.key }}" data-index="{{ item.index | plus: 1 }}" class="cart-quantity">
+                  <div class="pure-qty-controls">
+                    <!-- Plus Button -->
+                    <button type="button" class="pure-qty-btn" onclick="this.parentNode.previousElementSibling.stepUp(); this.parentNode.previousElementSibling.dispatchEvent(new Event('change', {bubbles:true}))">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+                    </button>
+                    <!-- Minus Button -->
+                    <button type="button" class="pure-qty-btn" onclick="this.parentNode.previousElementSibling.stepDown(); this.parentNode.previousElementSibling.dispatchEvent(new Event('change', {bubbles:true}))">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Price -->
+              <div class="pure-cart-item-price pure-cart-price-total">
+                {{ item.final_line_price | money }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </form>
+      
+      <!-- Right Column: Summary -->
+      <div class="pure-cart-summary">
+        <div class="pure-summary-title">Cart summary</div>
+        
+        <div class="pure-summary-row">
+          <span>Cart Subtotal</span>
+          <b>{{ cart.items_subtotal_price | money }}</b>
+        </div>
+        <div class="pure-summary-row">
+          <span>Shipping (standard)</span>
+          <b>Calculated at checkout</b>
+        </div>
+        
+        <div class="pure-summary-total">
+          <span>Total <span style="font-size:12px;font-weight:500;color:var(--lm-text-light)">(incl. VAT)</span></span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        
+        <button type="submit" form="cart" name="checkout" class="pure-checkout-btn">Proceed to Checkout</button>
+        <a href="/collections/all" class="pure-continue-btn">Continue Shopping</a>
+        
+        <div class="pure-promo-box">
+          <div class="pure-promo-title">Promo code</div>
+          <div class="pure-promo-input-wrap">
+            <input type="text" id="pure-promo-input" class="pure-promo-input" placeholder="Promo code">
+            <span class="pure-promo-apply" onclick="applyPromoCode()">Apply Voucher</span>
+          </div>
+          <div id="pure-promo-msg" style="font-size: 12px; margin-top: 6px; color: var(--lm-brand); display: none;">Discount will be applied at checkout!</div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  function applyPromoCode() {
+    const code = document.getElementById('pure-promo-input').value.trim();
+    if(code) {
+      document.getElementById('cart').action = '/cart?discount=' + encodeURIComponent(code);
+      const msg = document.getElementById('pure-promo-msg');
+      msg.style.display = 'block';
+      msg.innerText = `Code '${code}' will be applied at checkout.`;
+    }
+  }
+
+  document.querySelectorAll('.cart-quantity').forEach(input => {
+    input.addEventListener('change', function() {
+      document.getElementById('cart').submit();
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Cart - Purelane Light",
+  "settings": []
+}
+{% endschema %}
