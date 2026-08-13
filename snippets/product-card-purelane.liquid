@@ -1,0 +1,58 @@
+{% comment %}
+  product-card-purelane.liquid
+{% endcomment %}
+
+<article class="glass card rv {{ card_class }}">
+  <div class="shot">
+    {% if product.featured_image %}
+      <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title | escape }}" loading="lazy" style="height: 100%; width: 100%; object-fit: cover;">
+    {% else %}
+      <img src="{{ 'fallback.webp' | asset_url }}" alt="No image" loading="lazy" style="height: 100%; width: 100%; object-fit: cover;">
+    {% endif %}
+
+    {% unless product.available %}
+      <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: grid; place-items: center; z-index: 5;">
+        <span style="background: var(--surface); color: var(--ink); padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">Sold Out</span>
+      </div>
+    {% endunless %}
+
+    {% if product.tags contains 'Best seller' %}
+      <span class="pill" style="z-index: 10;">Best seller</span>
+    {% elsif product.tags contains 'Top rated' %}
+      <span class="pill" style="z-index: 10;">Top rated</span>
+    {% elsif product.tags contains 'New' %}
+      <span class="pill" style="z-index: 10;">New</span>
+    {% else %}
+      {% assign tag_hash = product.title | size | modulo: 3 %}
+      {% if tag_hash == 0 %}
+        <span class="pill" style="z-index: 10;">Top rated</span>
+      {% elsif tag_hash == 1 %}
+        <span class="pill" style="z-index: 10;">New</span>
+      {% else %}
+        <span class="pill" style="z-index: 10;">Best seller</span>
+      {% endif %}
+    {% endif %}
+  </div>
+  
+  <h4>{{ product.title | truncate: 45 }}</h4>
+  
+  <div class="rate"><b>★ 4.8</b> · {{ product.metafields.reviews.rating_count.value | default: '237' }} reviews</div>
+  
+  <div class="pr">
+    <strong>{{ product.price | money_without_trailing_zeros }}</strong>
+    {% if product.compare_at_price > product.price %}
+      <s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>
+      {% assign savings = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+      <em>{{ savings }}% off</em>
+    {% endif %}
+  </div>
+  
+  {% if product.available %}
+    <form method="post" action="/cart/add" style="margin-top: auto; display: contents;">
+      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+      <button type="submit" class="btn btn-ghost btn-sm" style="width: 100%; justify-content: center; margin-top: auto;">Add to cart</button>
+    </form>
+  {% else %}
+    <button disabled class="btn btn-ghost btn-sm" style="width: 100%; justify-content: center; opacity: 0.6; cursor: not-allowed; margin-top: auto;">Sold out</button>
+  {% endif %}
+</article>

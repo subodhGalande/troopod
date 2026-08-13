@@ -1,0 +1,99 @@
+<article class="glass combo {% if block.settings.is_hero %}hero-combo{% endif %}" {{ block.shopify_attributes }}>
+  <div class="tray">
+    {% if block.settings.save_badge != blank %}
+      <span class="save">{{ block.settings.save_badge }}</span>
+    {% endif %}
+    {% if block.settings.flag_badge != blank %}
+      <span class="flag">{{ block.settings.flag_badge }}</span>
+    {% endif %}
+
+    <div class="stack">
+      {% if block.settings.item_1_text != blank %}
+        <span class="it">
+          {% if block.settings.item_1_icon == 'tile' %}
+            <span class="tile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg>
+            </span>
+          {% else %}
+            <span class="pimg {{ block.settings.item_1_icon }}" role="img"></span>
+          {% endif %}
+          <span>{{ block.settings.item_1_text }}</span>
+        </span>
+        {% if block.settings.item_2_text != blank %}
+          <span class="plus" aria-hidden="true">+</span>
+        {% endif %}
+      {% endif %}
+
+      {% if block.settings.item_2_text != blank %}
+        <span class="it">
+          {% if block.settings.item_2_icon == 'tile' %}
+            <span class="tile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg>
+            </span>
+          {% else %}
+            <span class="pimg {{ block.settings.item_2_icon }}" role="img"></span>
+          {% endif %}
+          <span>{{ block.settings.item_2_text }}</span>
+        </span>
+        {% if block.settings.item_3_text != blank %}
+          <span class="plus" aria-hidden="true">+</span>
+        {% endif %}
+      {% endif %}
+
+      {% if block.settings.item_3_text != blank %}
+        <span class="it">
+          {% if block.settings.item_3_icon == 'tile' %}
+            <span class="tile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg>
+            </span>
+          {% else %}
+            <span class="pimg {{ block.settings.item_3_icon }}" role="img"></span>
+          {% endif %}
+          <span>{{ block.settings.item_3_text }}</span>
+        </span>
+        {% if block.settings.item_4_text != blank %}
+          <span class="plus" aria-hidden="true">+</span>
+        {% endif %}
+      {% endif %}
+
+      {% if block.settings.item_4_text != blank %}
+        <span class="it">
+          {% if block.settings.item_4_icon == 'tile' %}
+            <span class="tile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg>
+            </span>
+          {% else %}
+            <span class="pimg {{ block.settings.item_4_icon }}" role="img"></span>
+          {% endif %}
+          <span>{{ block.settings.item_4_text }}</span>
+        </span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="body">
+    <h3>{{ block.settings.title }}</h3>
+    <div class="cnt">{{ block.settings.item_count }}</div>
+    <p class="inc">{{ block.settings.description }}</p>
+
+    <div class="prow">
+      <strong>{{ block.settings.price }}</strong>
+      <s>{{ block.settings.compare_price }}</s>
+      <em>{{ block.settings.save_amount }}</em>
+    </div>
+
+    <div class="fine">Inclusive of all taxes &middot; COD available</div>
+    {% assign variant_array = '' %}
+    {% for product in block.settings.product_list %}
+      {% assign v_id = product.variants.first.id %}
+      {% if v_id %}
+        {% assign variant_array = variant_array | append: v_id | append: ',' %}
+      {% endif %}
+    {% endfor %}
+    {% assign variant_ids = '[' | append: variant_array | split: ',' | join: ',' | append: ']' %}
+    <button class="btn {% if block.settings.is_hero %}btn-primary{% else %}btn-ghost{% endif %} purelane-combo-add" data-variants="{{ variant_ids }}">
+      Shop bundle
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+    </button>
+  </div>
+</article>

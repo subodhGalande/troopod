@@ -1,0 +1,34 @@
+<article class="glass tier {% if block.settings.is_popular %}best rv-d2{% endif %} rv" {{ block.shopify_attributes }}>
+  <span class="tag">{{ block.settings.title }}</span>
+  
+  {% assign svg_classes = block.settings.svg_icons | split: ',' %}
+  <div class="tierpix {% if svg_classes.size == 5 %}five{% endif %}" aria-hidden="true">
+    {% for svg in svg_classes %}
+      {% assign clean_svg = svg | strip %}
+      <span class="pimg {{ clean_svg }}" role="img"></span>
+    {% endfor %}
+  </div>
+  
+  <div class="qty">{{ block.settings.qty_number }}<small>{{ block.settings.qty_text }}</small></div>
+  <div class="price">{{ block.settings.price }} <s>{{ block.settings.compare_price }}</s></div>
+  <p class="body-s" style="font-size:12px">{{ block.settings.subtitle }}</p>
+  
+  <ul>
+    {% if block.settings.feature_1 != blank %}
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>{{ block.settings.feature_1 }}</li>
+    {% endif %}
+    {% if block.settings.feature_2 != blank %}
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>{{ block.settings.feature_2 }}</li>
+    {% endif %}
+    {% if block.settings.feature_3 != blank %}
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>{{ block.settings.feature_3 }}</li>
+    {% endif %}
+  </ul>
+  
+  <button class="btn {% if block.settings.is_popular %}btn-primary{% else %}btn-ghost{% endif %} purelane-open-drawer" data-qty="{{ block.settings.qty_number }}">
+    {{ block.settings.btn_text }}
+    {% if block.settings.is_popular %}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+    {% endif %}
+  </button>
+</article>

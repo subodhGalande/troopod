@@ -1,0 +1,18 @@
+<article class="glass-2 rcard" {{ block.shopify_attributes }}>
+  <div class="st">
+    {% case block.settings.stars %}
+      {% when 5 %}&#9733;&#9733;&#9733;&#9733;&#9733;
+      {% when 4 %}&#9733;&#9733;&#9733;&#9733;&#9734;
+      {% when 3 %}&#9733;&#9733;&#9733;&#9734;&#9734;
+      {% when 2 %}&#9733;&#9733;&#9734;&#9734;&#9734;
+      {% when 1 %}&#9733;&#9734;&#9734;&#9734;&#9734;
+    {% endcase %}
+  </div>
+  <h5>{{ block.settings.headline }}</h5>
+  <p>{{ block.settings.body }}</p>
+  <div class="who">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+    <b>{{ block.settings.author }}</b>
+    <span>&middot; {{ block.settings.product_name }}</span>
+  </div>
+</article>

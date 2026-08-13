@@ -1,0 +1,154 @@
+<div id="purelane-bundle-drawer" class="bundle-drawer-overlay" aria-hidden="true">
+  <div class="bundle-drawer">
+    <div class="drawer-header">
+      <h3 id="drawer-title">Select products</h3>
+      <button class="drawer-close" aria-label="Close drawer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    
+    <div class="drawer-body">
+      {% if collection != blank and collection.products.size > 0 %}
+        <div class="drawer-grid">
+          {% for product in collection.products %}
+            {% assign v_id = product.variants.first.id %}
+            {% if v_id %}
+              <div class="drawer-card" data-variant-id="{{ v_id }}" data-price="{{ product.price }}">
+                <div class="drawer-img">
+                  {% if product.featured_image %}
+                    <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title | escape }}" loading="lazy">
+                  {% else %}
+                    <img src="{{ 'fallback.webp' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+                  {% endif %}
+                  <div class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+                </div>
+                <div class="drawer-info">
+                  <h4>{{ product.title }}</h4>
+                  <div class="drawer-price">{{ product.price | money }}</div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <p>Please select a Collection in the Theme Editor for the Bundles section.</p>
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="drawer-footer">
+      <div class="drawer-status">
+        <span id="drawer-count">0 / 0</span> selected
+      </div>
+      <button id="drawer-add-btn" class="btn btn-primary" disabled>
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const drawer = document.getElementById('purelane-bundle-drawer');
+    if (!drawer) return;
+    
+    const openBtns = document.querySelectorAll('.purelane-open-drawer');
+    const closeBtn = drawer.querySelector('.drawer-close');
+    const cards = drawer.querySelectorAll('.drawer-card');
+    const addBtn = document.getElementById('drawer-add-btn');
+    const titleEl = document.getElementById('drawer-title');
+    const countEl = document.getElementById('drawer-count');
+    
+    let requiredQty = 0;
+    let selectedVariants = [];
+    
+    function updateUI() {
+      countEl.innerText = `${selectedVariants.length} / ${requiredQty}`;
+      if (selectedVariants.length === requiredQty) {
+        addBtn.disabled = false;
+        cards.forEach(c => {
+          if (!c.classList.contains('selected')) c.classList.add('dimmed');
+        });
+      } else {
+        addBtn.disabled = true;
+        cards.forEach(c => c.classList.remove('dimmed'));
+      }
+    }
+    
+    openBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        requiredQty = parseInt(this.getAttribute('data-qty'));
+        titleEl.innerText = `Select ${requiredQty} products`;
+        
+        // Reset selections
+        selectedVariants = [];
+        cards.forEach(c => {
+          c.classList.remove('selected', 'dimmed');
+        });
+        updateUI();
+        
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden'; // lock background scroll
+      });
+    });
+    
+    closeBtn.addEventListener('click', function() {
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    });
+    
+    // Clicking overlay closes drawer
+    drawer.addEventListener('click', function(e) {
+      if (e.target === drawer) {
+        closeBtn.click();
+      }
+    });
+    
+    cards.forEach(card => {
+      card.addEventListener('click', function() {
+        const vid = this.getAttribute('data-variant-id');
+        
+        if (this.classList.contains('selected')) {
+          this.classList.remove('selected');
+          selectedVariants = selectedVariants.filter(id => id !== vid);
+        } else {
+          if (selectedVariants.length < requiredQty) {
+            this.classList.add('selected');
+            selectedVariants.push(vid);
+          }
+        }
+        updateUI();
+      });
+    });
+    
+    addBtn.addEventListener('click', function() {
+      if (selectedVariants.length !== requiredQty) return;
+      
+      const originalText = this.innerText;
+      this.innerText = 'Adding...';
+      this.style.opacity = '0.7';
+      this.style.pointerEvents = 'none';
+      
+      const items = selectedVariants.map(id => ({ id: id, quantity: 1 }));
+      
+      fetch(window.Shopify.routes.root + 'cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: items })
+      })
+      .then(response => response.json())
+      .then(data => {
+        window.location.href = window.Shopify.routes.root + 'cart';
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        addBtn.innerText = originalText;
+        addBtn.style.opacity = '1';
+        addBtn.style.pointerEvents = 'auto';
+        alert('Error adding bundle to cart.');
+      });
+    });
+  });
+</script>

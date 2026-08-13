@@ -1,0 +1,258 @@
+{{ 'purelane.css' | asset_url | stylesheet_tag }}
+
+<section class="sec" id="combos" data-scene="3">
+  <div class="wrap">
+    <div class="panel-head rv">
+      <span class="kicker">{{ section.settings.kicker | escape }}</span>
+      <h2 class="d2" style="margin-top:12px">{{ section.settings.heading | escape }}</h2>
+      <div class="rule"><i></i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg><i></i></div>
+      <p class="lede" style="margin:14px auto 0">{{ section.settings.subtext | escape }}</p>
+    </div>
+
+    <div class="comborail rv">
+      {%- for block in section.blocks -%}
+        {% render 'combo-card-purelane', block: block %}
+      {%- endfor -%}
+    </div>
+    
+    <div class="swipecue" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+      Swipe for more combos
+    </div>
+    <p class="railnote">Tapping "Shop bundle" adds all these products to your cart instantly.</p>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const buttons = document.querySelectorAll('.purelane-combo-add');
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const variantData = this.getAttribute('data-variants');
+          let variants = [];
+          
+          try {
+            variants = JSON.parse(variantData);
+          } catch(e) {
+            console.error('Invalid variant data', e);
+          }
+          
+          if (variants.length === 0) {
+            alert('Please select products in the Theme Editor for this combo.');
+            return;
+          }
+          
+          const items = variants.map(function(id) {
+            return { id: id, quantity: 1 };
+          });
+          
+          const originalText = this.innerHTML;
+          this.innerHTML = 'Adding...';
+          this.style.opacity = '0.7';
+          this.style.pointerEvents = 'none';
+          
+          fetch(window.Shopify.routes.root + 'cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: items })
+          })
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(data) {
+            window.location.href = window.Shopify.routes.root + 'cart';
+          })
+          .catch(function(error) {
+            console.error('Error:', error);
+            btn.innerHTML = originalText;
+            btn.style.opacity = '1';
+            btn.style.pointerEvents = 'auto';
+            alert('Error adding bundle to cart.');
+          });
+        });
+      });
+    });
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Combos - Purelane",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Pre-built to save you money"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Best selling combos"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "combo",
+      "name": "Combo Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Kitchen essentials"
+        },
+        {
+          "type": "product_list",
+          "id": "product_list",
+          "label": "Products in Combo (For Add To Cart)"
+        },
+        {
+          "type": "text",
+          "id": "item_count",
+          "label": "Item Count Tag",
+          "default": "3 products"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner."
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "₹499"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare Price",
+          "default": "₹897"
+        },
+        {
+          "type": "text",
+          "id": "save_amount",
+          "label": "Save Tag",
+          "default": "Save ₹398"
+        },
+        {
+          "type": "text",
+          "id": "save_badge",
+          "label": "Save Badge",
+          "default": "You save ₹398"
+        },
+        {
+          "type": "text",
+          "id": "flag_badge",
+          "label": "Flag Badge",
+          "default": "Most popular"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_hero",
+          "label": "Hero Combo (Highlight)",
+          "default": false
+        },
+        { "type": "header", "content": "Item 1" },
+        { "type": "select", "id": "item_1_icon", "label": "Icon", "options": [
+          {"value": "p-kitchen", "label": "Kitchen"}, {"value": "p-dish", "label": "Dishwash"}, {"value": "p-tap", "label": "Tap"}, {"value": "p-laundry", "label": "Laundry"}, {"value": "p-floor", "label": "Floor"}, {"value": "p-handwash", "label": "Handwash"}, {"value": "p-toilet", "label": "Toilet"}, {"value": "p-eraser", "label": "Eraser"}, {"value": "p-wm", "label": "Washing Machine"}, {"value": "p-metal", "label": "Metal"}, {"value": "tile", "label": "Leaf Tile"}
+        ], "default": "p-kitchen"},
+        { "type": "text", "id": "item_1_text", "label": "Text", "default": "Cuts grease" },
+        
+        { "type": "header", "content": "Item 2" },
+        { "type": "select", "id": "item_2_icon", "label": "Icon", "options": [
+          {"value": "p-kitchen", "label": "Kitchen"}, {"value": "p-dish", "label": "Dishwash"}, {"value": "p-tap", "label": "Tap"}, {"value": "p-laundry", "label": "Laundry"}, {"value": "p-floor", "label": "Floor"}, {"value": "p-handwash", "label": "Handwash"}, {"value": "p-toilet", "label": "Toilet"}, {"value": "p-eraser", "label": "Eraser"}, {"value": "p-wm", "label": "Washing Machine"}, {"value": "p-metal", "label": "Metal"}, {"value": "tile", "label": "Leaf Tile"}
+        ], "default": "p-dish"},
+        { "type": "text", "id": "item_2_text", "label": "Text", "default": "Clean dishes" },
+        
+        { "type": "header", "content": "Item 3" },
+        { "type": "select", "id": "item_3_icon", "label": "Icon", "options": [
+          {"value": "p-kitchen", "label": "Kitchen"}, {"value": "p-dish", "label": "Dishwash"}, {"value": "p-tap", "label": "Tap"}, {"value": "p-laundry", "label": "Laundry"}, {"value": "p-floor", "label": "Floor"}, {"value": "p-handwash", "label": "Handwash"}, {"value": "p-toilet", "label": "Toilet"}, {"value": "p-eraser", "label": "Eraser"}, {"value": "p-wm", "label": "Washing Machine"}, {"value": "p-metal", "label": "Metal"}, {"value": "tile", "label": "Leaf Tile"}
+        ], "default": "p-tap"},
+        { "type": "text", "id": "item_3_text", "label": "Text", "default": "Limescale fix" },
+        
+        { "type": "header", "content": "Item 4" },
+        { "type": "select", "id": "item_4_icon", "label": "Icon", "options": [
+          {"value": "p-kitchen", "label": "Kitchen"}, {"value": "p-dish", "label": "Dishwash"}, {"value": "p-tap", "label": "Tap"}, {"value": "p-laundry", "label": "Laundry"}, {"value": "p-floor", "label": "Floor"}, {"value": "p-handwash", "label": "Handwash"}, {"value": "p-toilet", "label": "Toilet"}, {"value": "p-eraser", "label": "Eraser"}, {"value": "p-wm", "label": "Washing Machine"}, {"value": "p-metal", "label": "Metal"}, {"value": "tile", "label": "Leaf Tile"}
+        ]},
+        { "type": "text", "id": "item_4_text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Combos - Purelane",
+      "blocks": [
+        {
+          "type": "combo",
+          "settings": {
+            "title": "Kitchen essentials",
+            "item_count": "3 products",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "save_amount": "Save ₹398",
+            "save_badge": "You save ₹398",
+            "flag_badge": "Most popular",
+            "item_1_icon": "p-kitchen", "item_1_text": "Cuts grease instantly",
+            "item_2_icon": "p-dish", "item_2_text": "Squeaky clean dishes",
+            "item_3_icon": "p-tap", "item_3_text": "Melts hard water stains"
+          }
+        },
+        {
+          "type": "combo",
+          "settings": {
+            "title": "Laundry care bundle",
+            "item_count": "3 products",
+            "price": "₹499",
+            "compare_price": "₹947",
+            "save_amount": "Save ₹448",
+            "save_badge": "You save ₹448",
+            "item_1_icon": "p-laundry", "item_1_text": "Removes tough stains & odour",
+            "item_2_icon": "tile", "item_2_text": "Softens & freshens every wash",
+            "item_3_icon": "p-wm", "item_3_text": "Deep-cleans your machine"
+          }
+        },
+        {
+          "type": "combo",
+          "settings": {
+            "title": "Complete home bundle",
+            "item_count": "5 products",
+            "price": "₹799",
+            "compare_price": "₹1,495",
+            "save_amount": "Save ₹696",
+            "save_badge": "Biggest saving",
+            "flag_badge": "Best value",
+            "is_hero": true,
+            "item_1_icon": "p-kitchen", "item_1_text": "Cuts grease instantly",
+            "item_2_icon": "p-toilet", "item_2_text": "Kills 99.9% germs",
+            "item_3_icon": "p-handwash", "item_3_text": "Gentle hydration for hands"
+          }
+        },
+        {
+          "type": "combo",
+          "settings": {
+            "title": "Bathroom deep clean",
+            "item_count": "3 products",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "save_amount": "Save ₹398",
+            "save_badge": "You save ₹398",
+            "item_1_icon": "p-toilet", "item_1_text": "Kills 99.9% germs",
+            "item_2_icon": "p-tap", "item_2_text": "Melts hard water stains",
+            "item_3_icon": "p-eraser", "item_3_text": "Scrubs away soap scum"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
