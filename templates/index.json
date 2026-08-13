@@ -403,6 +403,7 @@
           "settings": {
             "title": "Kitchen essentials",
             "item_count": "3 products",
+            "description": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner. Everything for a sparkling kitchen, no need to pick separately.",
             "price": "₹499",
             "compare_price": "₹897",
             "save_amount": "Save ₹398",
@@ -421,6 +422,7 @@
           "settings": {
             "title": "Laundry care bundle",
             "item_count": "3 products",
+            "description": "Includes: Laundry Detergent, Fabric Conditioner & Machine Cleaner Powder. Softer, fresher wash, all in one box.",
             "price": "₹499",
             "compare_price": "₹947",
             "save_amount": "Save ₹448",
@@ -438,6 +440,7 @@
           "settings": {
             "title": "Complete home bundle",
             "item_count": "5 products",
+            "description": "Includes: Kitchen Cleaner, Laundry Detergent, Floor Cleaner, Toilet Cleaner & Handwash. Our biggest saving box.",
             "price": "₹799",
             "compare_price": "₹1,495",
             "save_amount": "Save ₹696",
@@ -457,6 +460,7 @@
           "settings": {
             "title": "Bathroom deep clean",
             "item_count": "3 products",
+            "description": "Includes: Toilet Cleaner, Tap Cleaner & Magic Eraser. A complete bathroom refresh in one box.",
             "price": "₹499",
             "compare_price": "₹897",
             "save_amount": "Save ₹398",
@@ -474,6 +478,7 @@
           "settings": {
             "title": "Hard water solution kit",
             "item_count": "2 products",
+            "description": "Includes: Tap Cleaner & Toilet Cleaner. A quick, focused fix for hard water stains across the home.",
             "price": "₹349",
             "compare_price": "₹598",
             "save_amount": "Save ₹249",

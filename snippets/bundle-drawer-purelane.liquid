@@ -65,7 +65,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     const drawer = document.getElementById('purelane-bundle-drawer');
     if (!drawer) return;
-    
+    document.body.appendChild(drawer);
     const openBtns = document.querySelectorAll('.purelane-open-drawer');
     const closeBtn = drawer.querySelector('.drawer-close');
     const cards = drawer.querySelectorAll('.drawer-card');

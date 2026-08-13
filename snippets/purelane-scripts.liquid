@@ -24,12 +24,20 @@
     scenes.forEach(function (s, i) { s.classList.toggle('on', i + 1 === n); });
     if (stage) stage.setAttribute('data-d', String(n));
   }
+  
+  var cachedZones = [];
+  function calcZones() {
+    cachedZones = zones.map(function(z) {
+      var top = 0, el = z;
+      while (el) { top += el.offsetTop; el = el.offsetParent; }
+      return { top: top, scene: parseInt(z.getAttribute('data-scene'), 10) || 1 };
+    });
+  }
+
   function pickScene() {
     var focus = window.scrollY + window.innerHeight * 0.5, n = 1;
-    for (var i = 0; i < zones.length; i++) {
-      var z = zones[i], top = 0, el = z;
-      while (el) { top += el.offsetTop; el = el.offsetParent; }
-      if (top <= focus) n = parseInt(z.getAttribute('data-scene'), 10) || n;
+    for (var i = 0; i < cachedZones.length; i++) {
+      if (cachedZones[i].top <= focus) n = cachedZones[i].scene;
     }
     setScene(n);
   }
@@ -37,13 +45,21 @@
   /* ---------- rail sync ---------- */
   var railLinks = [].slice.call(document.querySelectorAll('.rail a'));
   var targets = railLinks.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  
+  var cachedTargets = [];
+  function calcTargets() {
+    cachedTargets = targets.map(function(t) {
+      if (!t) return null;
+      var top = 0, el = t;
+      while (el) { top += el.offsetTop; el = el.offsetParent; }
+      return top;
+    });
+  }
+
   function syncRail() {
     var mid = window.scrollY + window.innerHeight * 0.42, idx = 0;
-    targets.forEach(function (t, i) {
-      if (t) {
-        var top = t.getBoundingClientRect().top + window.scrollY;
-        if (top <= mid) idx = i;
-      }
+    cachedTargets.forEach(function (top, i) {
+      if (top !== null && top <= mid) idx = i;
     });
     railLinks.forEach(function (a, i) { a.classList.toggle('on', i === idx); });
   }
@@ -51,14 +67,17 @@
   /* ---------- parallax + header ---------- */
   var hdr = document.getElementById('hdr');
   var prod = document.getElementById('heroProd');
+  var wl = document.querySelectorAll('#water .wl');
   var raf = null, mx = 0, my = 0;
+  
+  calcZones();
+  calcTargets();
 
   function frame() {
     raf = null;
     var y = window.scrollY || window.pageYOffset;
     if (hdr) hdr.classList.toggle('up', y > 90);
     if (!reduce) {
-      var wl = document.querySelectorAll('#water .wl');
       for (var i = 0; i < wl.length; i++) {
         var d = [0.05, 0.09, 0.03, 0.02][i] || 0.05;
         wl[i].style.setProperty('--px', (mx * d * 130).toFixed(1) + 'px');
@@ -75,7 +94,11 @@
   }
   function onScroll() { if (!raf) raf = requestAnimationFrame(frame); }
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
+  window.addEventListener('resize', function() {
+    calcZones();
+    calcTargets();
+    onScroll();
+  });
 
   if (!reduce && window.matchMedia('(min-width: 1024px)').matches) {
     window.addEventListener('mousemove', function (e) {
