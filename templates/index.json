@@ -18,11 +18,106 @@
     "purelane_how": {
       "type": "purelane-how"
     },
-    "purelane_proof": {
-      "type": "purelane-proof"
-    },
     "purelane_bundles": {
       "type": "purelane-bundles"
+    },
+    "purelane_combos": {
+      "type": "combos-purelane",
+      "blocks": {
+        "combo_1": {
+          "type": "combo",
+          "settings": {
+            "title": "Kitchen essentials",
+            "item_count": "3 products",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "save_amount": "Save ₹398",
+            "save_badge": "You save ₹398",
+            "flag_badge": "Most popular",
+            "item_1_icon": "p-kitchen",
+            "item_1_text": "Cuts grease instantly",
+            "item_2_icon": "p-dish",
+            "item_2_text": "Squeaky clean dishes",
+            "item_3_icon": "p-tap",
+            "item_3_text": "Melts hard water stains"
+          }
+        },
+        "combo_2": {
+          "type": "combo",
+          "settings": {
+            "title": "Laundry care bundle",
+            "item_count": "3 products",
+            "price": "₹499",
+            "compare_price": "₹947",
+            "save_amount": "Save ₹448",
+            "save_badge": "You save ₹448",
+            "item_1_icon": "p-laundry",
+            "item_1_text": "Removes tough stains & odour",
+            "item_2_icon": "tile",
+            "item_2_text": "Softens & freshens every wash",
+            "item_3_icon": "p-wm",
+            "item_3_text": "Deep-cleans your machine"
+          }
+        },
+        "combo_3": {
+          "type": "combo",
+          "settings": {
+            "title": "Complete home bundle",
+            "item_count": "5 products",
+            "price": "₹799",
+            "compare_price": "₹1,495",
+            "save_amount": "Save ₹696",
+            "save_badge": "Biggest saving",
+            "flag_badge": "Best value",
+            "is_hero": true,
+            "item_1_icon": "p-kitchen",
+            "item_1_text": "Cuts grease instantly",
+            "item_2_icon": "p-floor",
+            "item_2_text": "Kills 99.9% germs",
+            "item_3_icon": "p-handwash",
+            "item_3_text": "Gentle hydration for hands"
+          }
+        },
+        "combo_4": {
+          "type": "combo",
+          "settings": {
+            "title": "Bathroom deep clean",
+            "item_count": "3 products",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "save_amount": "Save ₹398",
+            "save_badge": "You save ₹398",
+            "item_1_icon": "p-toilet",
+            "item_1_text": "Kills 99.9% germs",
+            "item_2_icon": "p-tap",
+            "item_2_text": "Melts hard water stains",
+            "item_3_icon": "p-eraser",
+            "item_3_text": "Scrubs away soap scum"
+          }
+        },
+        "combo_5": {
+          "type": "combo",
+          "settings": {
+            "title": "Hard water solution kit",
+            "item_count": "2 products",
+            "price": "₹349",
+            "compare_price": "₹598",
+            "save_amount": "Save ₹249",
+            "save_badge": "You save ₹249",
+            "item_1_icon": "p-tap",
+            "item_1_text": "Melts hard water stains",
+            "item_2_icon": "p-toilet",
+            "item_2_text": "Fights limescale in the bowl"
+          }
+        }
+      },
+      "block_order": [
+        "combo_1",
+        "combo_2",
+        "combo_3",
+        "combo_4",
+        "combo_5"
+      ]
     },
     "purelane_shop": {
       "type": "purelane-shop"
@@ -38,7 +133,7 @@
     "purelane_reviews",
     "purelane_ingredients",
     "purelane_how",
-    "purelane_proof",
+    "purelane_combos",
     "purelane_bundles",
     "purelane_shop",
     "purelane_trust"

@@ -391,8 +391,10 @@ main{position:relative;z-index:2}
 .tier .btn{width:100%;justify-content:center}
 
 /* ---------- SHELF ---------- */
-.shelf{display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
-@media(min-width:860px){.shelf{grid-template-columns:repeat(4,1fr)}}
+.shelf{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;-webkit-overflow-scrolling:touch}
+.shelf::-webkit-scrollbar{display:none}
+.shelf .card{flex:0 0 72%;scroll-snap-align:start}
+@media(min-width:860px){.shelf{display:grid;grid-template-columns:repeat(4,1fr);overflow-x:visible;padding-bottom:0}.shelf .card{flex:none;width:auto}}
 .card{padding:16px;display:flex;flex-direction:column;transition:.4s var(--ease)}
 .card:hover{transform:translateY(-5px)}
 .card .shot{height:150px;border-radius:14px;margin-bottom:14px;display:grid;place-items:center;position:relative;overflow:hidden;
